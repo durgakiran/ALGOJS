@@ -7,17 +7,17 @@
 */
 
 function compareTwoIntegers(a, b) {
-  if (a > b) {
-    return 1;
-  }
-  if (a === b) {
-    return 0;
-  }
   if (a !== 0 && !a) {
     return -1;
   }
   if (b !== 0 && !b) {
     return 1;
+  }
+  if (a > b) {
+    return 1;
+  }
+  if (a === b) {
+    return 0;
   }
   return -1;
 }
@@ -29,18 +29,23 @@ function maximumProductOfTwoIntegers(arrayOfIntegers) {
   arrayOfIntegers.forEach((integer, index) => {
     const maxNumber = arrayOfIntegers[maxNumberIndex];
     const secondMaxNumber = arrayOfIntegers[secondMaxNumberIndex];
+
     if (index === 0) {
       maxNumberIndex = 0;
-    } else if (compareTwoIntegers(integer, maxNumber !== -1)
+    } else if (compareTwoIntegers(integer, maxNumber) !== -1
     && compareTwoIntegers(maxNumber, secondMaxNumber) !== -1) {
       secondMaxNumberIndex = maxNumberIndex;
       maxNumberIndex = index;
     } else if (compareTwoIntegers(integer, maxNumber) === -1
-    && compareTwoIntegers(maxNumber, secondMaxNumber) !== -1) {
+    && compareTwoIntegers(integer, secondMaxNumber) !== -1) {
       secondMaxNumberIndex = index;
     }
   });
-  return (arrayOfIntegers[maxNumberIndex] * arrayOfIntegers[secondMaxNumberIndex]);
+
+  return ((arrayOfIntegers[maxNumberIndex]) * arrayOfIntegers[secondMaxNumberIndex]);
 }
 
-export default maximumProductOfTwoIntegers;
+export {
+  maximumProductOfTwoIntegers,
+  compareTwoIntegers,
+};
