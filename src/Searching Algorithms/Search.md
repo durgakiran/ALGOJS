@@ -104,3 +104,68 @@ function mergeSort(array) {
 ```
 
 
+
+#### Quick Sort
+- Time complexity `O(n logn)`.
+- Belives that sorting by recustion just like merge sort.
+- The quick sort is more complicated than merge sort.
+- It takes a pivot index in the given array and finds the correct position of that pivot element in the sorted array.
+- picking pivot is affects the runtime of quick sort, ideally median value in the data set.
+##### The shortcomings of Bubble sort, Insertion sort, Selection sort.
+- Big O Complexity of these sorting algorithms are `o(n^2)`.
+- 
+
+##### Merge Sort Pseudo code.
+1. take array as input.
+1. split into individual element array (recursion)
+1. for each of two sorted arrays
+    1. take an empty array called merged array.
+    1. take two pointers pointing first elements of each of the two arrays.
+    1. while there are values which are not looked at
+        1. if the value in the first array smaller than second array, push the value in the first array to merged array and change our pointer in the frist array to next element.
+        1. else if the first array is larger than second array, push the value in the second array to merged array and change our pointer in the second array to next element.
+        1. if valeus in either first or second array or remaining without any value ot compare push all the remaining value to the end of ther merged array.
+    1. return merged array.
+1. return the sorted array.
+
+```javascript
+function pivot(arr, start = 0, end = arr.length + 1) {
+    let pivotedArray = [];
+    let pivot = arr[start];
+
+    let swapIndex = start;
+
+    const swap = (firstIndex, secondIndex) => {
+        let temp = arr[firstIndex];
+        arr[firstIndex] = arr[secondIndex];
+        arr[secondIndex] = temp;
+    }
+
+    for (let i = start + 1; i < arr.length; i += 1) {
+        if(pivot > arr[i]) {
+            swapIndex += 1;
+            swap(swapIndex, i);
+        }
+    }
+    
+    
+    return pivotedArray;
+}
+
+
+
+function mergeSort(array) {
+    // split into individual element arrays
+    const { length } = array;
+    if(length <= 1 ) {
+        return array;
+    }
+
+    const mid = Math.floor((0 + length ) / 2);
+    const left = mergeSort(array.slice(0, mid));
+    const right = mergeSort(array.slice(mid, length));
+
+    return merge(left, right);
+} 
+```
+
