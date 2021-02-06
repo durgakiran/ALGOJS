@@ -34,12 +34,16 @@ class HuffManTree {
   getLowestFrequentChar() {
     let lowestFrequentKey;
     let lowestFrequentValue;
+    // console.log(this.frequencyHashMap);
     for(const [key, value] of this.frequencyHashMap) {
-      if(!lowestFrequentValue || lowestFrequentValue < value.frequency) {
+      if(!lowestFrequentValue || lowestFrequentValue.frequency > value.frequency) {
+        // console.log(key);
         lowestFrequentKey = key;
         lowestFrequentValue = value;
       }
     }
+
+    // console.log(lowestFrequentValue);
 
     this.frequencyHashMap.delete(lowestFrequentKey);
 
@@ -94,16 +98,14 @@ class HuffManTree {
 
 
       if(Number(c) === 0) {
-        if(currentNode.left) {
-          currentNode = currentNode.left;
-        } else {
+        currentNode = currentNode.left;
+        if(!currentNode.left) {
           str += currentNode.val;
           currentNode = this.frequencyHashMap.get(this.key);
         }
       } else {
-        if(currentNode.right) {
-          currentNode = currentNode.right;
-        } else {
+        currentNode = currentNode.right;
+        if(!currentNode.right) {
           str += currentNode.val;
           currentNode = this.frequencyHashMap.get(this.key);
         }
@@ -116,10 +118,10 @@ class HuffManTree {
 }
 
 
-const hfTree = new HuffManTree('ABRACADBRA');
+const hfTree = new HuffManTree('ABRACADABRA');
 
 const tree = hfTree.createTree();
-
-const str = hfTree.getStringFromHuffManCode('01101');
+// console.log(tree);
+const str = hfTree.getStringFromHuffManCode('01111001100011010111100');
 console.log(str);
 
